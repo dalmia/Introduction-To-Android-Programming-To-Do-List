@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     //declare the variables
@@ -26,6 +28,14 @@ public class MainActivity extends AppCompatActivity {
         input = (EditText) findViewById(R.id.input);
         notes = (LinearLayout) findViewById(R.id.notes);
         db = new SQLiteHandler(getApplicationContext());
+        ArrayList<String> storedData = db.getData();
+        if(storedData.size()>0){
+            TextView newView = new TextView(this);
+            for(int i = 0; i<storedData.size();i++){
+                newView.setText(storedData.get(i));
+                notes.addView(newView);
+            }
+        }
         addNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 tv.setText(input.getText().toString());
                 //add the textView to the LinearLayout defined above
                 notes.addView(tv);
+                db.addData(input.getText().toString());
                 //Remove whatever was written once add is pressed.
                 input.setText("");
             }
