@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,8 +27,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                // Storing and showing the user data
-                Toast.makeText(MainActivity.this, input.getText().toString(), Toast.LENGTH_SHORT).show();
+                //This time we declare a TextView programmatically
+                //Initialise an empty textView
+                TextView tv = new TextView(MainActivity.this);
+                //set the text as the user input
+                tv.setText(input.getText().toString());
+                //add the textView to the LinearLayout defined above
+                notes.addView(tv);
                 //Remove whatever was written once add is pressed.
                 input.setText("");
             }
